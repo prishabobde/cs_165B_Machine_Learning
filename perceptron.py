@@ -127,7 +127,7 @@ def run(Xtrain_file: str, Ytrain_file: str, test_data_file: str, pred_file: str)
 
     y_pred = currVotedPercep.predict(X_test)
 
-    pd.DataFrame(y_pred).to_csv(pred_file, index=False, header=False)
+    pd.DataFrame(y_pred).to_csv(pred_file, index=False, header=False)       #same format as spam_y; no col/row num 
     
     #raise NotImplementedError
 
@@ -159,8 +159,7 @@ def runForReport(X, y):
 
         currAccuracy = evaluate(y_test, y_pred)
         accuracies.append(currAccuracy)
-        print(f"{f*100:.0f}% → {currAccuracy:.4f}")
-
+        print(f"{f} : {currAccuracy}")
 
     return accuracies
 
