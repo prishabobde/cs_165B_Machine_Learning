@@ -56,7 +56,7 @@ def splitData(X, y):
 class VotedPerceptron:
     """Voted Perceptron Classifier."""
 
-    def train(self, X, y, epochs = 10):
+    def train(self, X, y, epochs = 100):
         """Fit the classifier to training data."""
         self.weights = []       #init to empty
         self.counts = []
