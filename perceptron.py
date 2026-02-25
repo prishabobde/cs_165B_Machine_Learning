@@ -27,11 +27,22 @@ def load_data(X_path: str, y_path: str = None):
 
 def preprocess_data(X_train, X_test):
     """Preprocess training and test data."""
+    
     #X shape: (3680, 57); y shape: (3680,) First 5 labels: [-1 -1 -1  1 -1]
     #adding bias --> X shape is now (3680, 58) --> x' = [x1, x2, ... x57, 1]
 
+    #mean = 0; var = 1  --> normalize
+    mean = np.mean(X_train, axis=0)
+    std = np.std(X_train, axis=0)
+    std[std == 0] = 1        # prev division by zero
+    X_train = (X_train - mean) / std
+    X_test = (X_test - mean) / std
+
+    #adding bias
     X_train = np.hstack([X_train, np.ones((X_train.shape[0], 1))])
     X_test = np.hstack([X_test, np.ones((X_test.shape[0], 1))])
+
+    
     return X_train, X_test
 
     #raise NotImplementedError
@@ -56,7 +67,7 @@ def splitData(X, y):
 class VotedPerceptron:
     """Voted Perceptron Classifier."""
 
-    def train(self, X, y, epochs = 300):
+    def train(self, X, y, epochs = 200):
         """Fit the classifier to training data."""
         self.weights = []       #init to empty
         self.counts = []
@@ -68,8 +79,11 @@ class VotedPerceptron:
         c = 0
         w = np.zeros(nFeatures)
 
+       
         for e in range(epochs):
-            for i in range(nSamples):
+            indices = np.random.permutation(nSamples)
+
+            for i in indices:       #extra shuffling
                 if y[i] * np.dot(w, X[i]) > 0:
                     c += 1
                 else:

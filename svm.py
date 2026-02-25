@@ -66,7 +66,7 @@ class SVMClassifier:
     """Support Vector Machine Classifier."""
 
 
-    def train(self, X, y, lambda_val=0.001, learning_rate=0.01, epochs=300):
+    def train(self, X, y, lambda_val=0.001, learning_rate=0.01, epochs=200):
         """Fit the classifier to training data."""
         nSamples, nFeatures = X.shape
         w = np.zeros(nFeatures)
@@ -111,7 +111,7 @@ def run(Xtrain_file: str, Ytrain_file: str, test_data_file: str, pred_file: str)
     X_train, X_test = preprocess_data(X_train, X_test)
 
     currSVCM = SVMClassifier()
-    currSVCM.train(X_train, y_train, lambda_val=0.0001, learning_rate=0.01, epochs=10)
+    currSVCM.train(X_train, y_train, lambda_val=0.0001, learning_rate=0.01, epochs=200)
 
     y_pred = currSVCM.predict(X_test)
 
