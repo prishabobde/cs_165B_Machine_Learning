@@ -38,14 +38,26 @@ def splitData(X, y):
 
     return X_train, y_train, X_test, y_test
 
+
+
+
 def preprocess_data(X_train, X_test):
     """Preprocess training and test data."""
     #X shape: (3680, 57); y shape: (3680,) First 5 labels: [-1 -1 -1  1 -1]
     #adding bias --> X shape is now (3680, 58) --> x' = [x1, x2, ... x57, 1]
 
+    #mean = 0; var = 1  --> normalize
+    mean = np.mean(X_train, axis=0)
+    std = np.std(X_train, axis=0)
+    std[std == 0] = 1        # prev division by zero
+    X_train_scaled = (X_train - mean) / std
+    X_test_scaled = (X_test - mean) / std
+   
+   #bias
     X_train = np.hstack([X_train, np.ones((X_train.shape[0], 1))])
     X_test = np.hstack([X_test, np.ones((X_test.shape[0], 1))])
     return X_train, X_test
+
 
     #raise NotImplementedError
 
@@ -53,12 +65,17 @@ def preprocess_data(X_train, X_test):
 class SVMClassifier:
     """Support Vector Machine Classifier."""
 
-    def train(self, X, y, lambda_val=0.001, learning_rate=0.01, epochs=50):
+
+    def train(self, X, y, lambda_val=0.001, learning_rate=0.01, epochs=300):
         """Fit the classifier to training data."""
         nSamples, nFeatures = X.shape
         w = np.zeros(nFeatures)
+        initial_learning_rate = learning_rate
+
+        #learning rate = large in the beginning, towards the end decrease
 
         for e in range(epochs):
+
             indices = np.random.permutation(nSamples)       #trying to shuffle more
             for i in indices:
                 if (y[i] * np.dot(w, X[i])) < 1:

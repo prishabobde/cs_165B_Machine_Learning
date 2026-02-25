@@ -56,7 +56,7 @@ def splitData(X, y):
 class VotedPerceptron:
     """Voted Perceptron Classifier."""
 
-    def train(self, X, y, epochs = 100):
+    def train(self, X, y, epochs = 300):
         """Fit the classifier to training data."""
         self.weights = []       #init to empty
         self.counts = []
@@ -166,11 +166,11 @@ def runForReport(X, y):
 
 
 # if __name__ == "__main__":
-    #  testing
-#    if len(sys.argv) != 5:
-#     print("Wrong num args")
-#     sys.exit(1)
+# #      testing
+# #    if len(sys.argv) != 5:
+# #     print("Wrong num args")
+# #     sys.exit(1)
 
-    # X, y = load_data("spam_X.csv", "spam_y.csv")
-    # runForReport(X, y)
+#     X, y = load_data("spam_X.csv", "spam_y.csv")
+#     runForReport(X, y)
 
