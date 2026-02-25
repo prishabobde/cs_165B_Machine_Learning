@@ -50,8 +50,8 @@ def preprocess_data(X_train, X_test):
     mean = np.mean(X_train, axis=0)
     std = np.std(X_train, axis=0)
     std[std == 0] = 1        # prev division by zero
-    X_train_scaled = (X_train - mean) / std
-    X_test_scaled = (X_test - mean) / std
+    X_train = (X_train - mean) / std
+    X_test = (X_test - mean) / std
    
    #bias
     X_train = np.hstack([X_train, np.ones((X_train.shape[0], 1))])
