@@ -154,7 +154,7 @@ def run(Xtrain_file: str, Ytrain_file: str, test_data_file: str, pred_file: str)
     X_train, X_test = preprocess_data(X_train, X_test)
 
     model = KNNClassifier()
-    model.k = 5
+    model.k = 1
     model.train(X_train, y_train)
 
     y_pred = model.predict(X_test)
