@@ -24,9 +24,9 @@ def load_data(X_path: str, y_path: str = None):
 
 def splitData(X, y):
     #add shuffle
-    #indices = np.random.permutation(X.shape[0])
-    # X = X[indices]
-    # y = y[indices]
+    indices = np.random.permutation(X.shape[0])
+    X = X[indices]
+    y = y[indices]
 
     n = X.shape[0]
     splitIdx = int(0.9 * n)       # 90% and 10%
@@ -79,6 +79,9 @@ class KNNClassifier:
 
         self.X_train = X
         self.y_train = y
+
+        m = X.shape[0]      #num training points
+        w = np.ones(m) / m      #init all to 1/m for i = 1,..., m
        
 
         # TODO: Implement
@@ -182,7 +185,6 @@ def runForReport(X, y):
         accuracy = evaluate(y_test, predictions) 
 
         print("k = ", k, ", accuracy = ", accuracy)
-
 
 
     
