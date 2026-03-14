@@ -9,6 +9,8 @@ import pandas as pd
 import math
 
 
+
+
 def load_data(X_path: str, y_path: str = None):
     """Load features and labels from CSV files."""
     df_X = pd.read_csv(X_path)
@@ -20,7 +22,6 @@ def load_data(X_path: str, y_path: str = None):
         return X,y
 
     return X
-    #raise NotImplementedError
 
 def splitData(X, y):
     #add shuffle
@@ -153,16 +154,12 @@ def run(Xtrain_file: str, Ytrain_file: str, test_data_file: str, pred_file: str)
     X_train, X_test = preprocess_data(X_train, X_test)
 
     model = KNNClassifier()
-    model.k = 1
+    model.k = 5
     model.train(X_train, y_train)
 
     y_pred = model.predict(X_test)
 
     pd.DataFrame(y_pred).to_csv(pred_file, index=False, header=False)       #same format as spam_y; no col/row num 
-
-
-    # TODO: Implement
-    #raise NotImplementedError
 
 
 
@@ -187,9 +184,11 @@ def runForReport(X, y):
         print("k = ", k, ", accuracy = ", accuracy)
 
 
-    
+   
 
-# if __name__ == "__main__":
-#     X, y = load_data("wine_X.csv", "wine_y.csv")
-#     runForReport(X, y)
+
+if __name__ == "__main__":
+    X, y = load_data("wine_X.csv", "wine_y.csv")
+    runForReport(X, y)
+  
 
