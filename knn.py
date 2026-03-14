@@ -153,28 +153,9 @@ def run(Xtrain_file: str, Ytrain_file: str, test_data_file: str, pred_file: str)
 
     X_train, X_test = preprocess_data(X_train, X_test)
 
-    #  train/valid split --> to pick best k
-    split_idx = int(0.9 * X_train.shape[0])
-    X_train_sub, y_train_sub = X_train[:split_idx],  y_train[:split_idx]
-    X_val, y_val = X_train[split_idx:],   y_train[split_idx:]
-
-    k_vals = [1, 3, 5, 7, 9, 11, 15, 21]
-
-    best_k = k_vals[0]          #just init to 1; if a k is found with better accuracy use that
-    best_acc = -1
-
-    for k in k_vals:
-        model = KNNClassifier()
-        model.k = k
-        model.train(X_train_sub, y_train_sub)
-        y_pred_val = model.predict(X_val)
-        acc = evaluate(y_val, y_pred_val)
-        if acc > best_acc:
-            best_acc = acc
-            best_k = k
-
+   
     model = KNNClassifier()
-    model.k = best_k
+    model.k = 1
     model.train(X_train, y_train)
 
     y_pred = model.predict(X_test)
