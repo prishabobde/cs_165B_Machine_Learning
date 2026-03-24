@@ -179,7 +179,7 @@ def run(Xtrain_file: str, Ytrain_file: str, test_data_file: str, pred_file: str)
 
 
 
-# if __name__ == "__main__":
-#     X, y = load_data("wine_X.csv", "wine_y.csv")
-#     runForReport(X, y)
+if __name__ == "__main__":
+    X, y = load_data("wine_X.csv", "wine_y.csv")
+    runForReport(X, y)
 
